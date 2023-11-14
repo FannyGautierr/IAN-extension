@@ -11,14 +11,9 @@ function changeFontSize(delta) {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.log('hey')
     if (message.action === "increaseFontSize") {
-        changeFontSize(1); // Increase font size by 1px
+        changeFontSize(1);
     } else if (message.action === "decreaseFontSize") {
-        changeFontSize(-1); // Decrease font size by 1px
+        changeFontSize(-1);
     }
-    sendResponse({status: "done"}); // Optional: send a response back
-});
-
-chrome.runtime.connect(
-    chrome.extension.getBackgroundPage(),
-    {name: 'my-port'}
-    );
+    sendResponse({status: "done"}); 
+})
