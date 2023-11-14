@@ -1,10 +1,10 @@
 # Executer le projet
 
-Dropdown le fichier html
+Dans le gestionnaire d'extension de votre navigateur Chrome et Firefox, installer l'extension "Accessibility Extension".
 
 # Stack technique
 
-HTML/CSS/JS
+Langages : HTML/CSS/JS
 
 # Organisation du projet
 
