@@ -10,4 +10,13 @@ window.addEventListener('DOMContentLoaded', () => {
             chrome.tabs.sendMessage(tabs[0].id, {action: "decreaseFontSize"});
         });
     });
+
+    document.getElementById('contrastActivation').addEventListener('click', () => {
+
+        if(document.getElementById('contrastActivation').value === "Activé") {
+            document.getElementById('contrastActivation').value = "Désactivé"
+        } else {
+            document.getElementById('contrastActivation').value = "Activé"
+        }
+    });
 });

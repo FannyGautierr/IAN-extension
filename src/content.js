@@ -17,8 +17,3 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
     sendResponse({status: "done"}); // Optional: send a response back
 });
-
-chrome.runtime.connect(
-    chrome.extension.getBackgroundPage(),
-    {name: 'my-port'}
-    );
