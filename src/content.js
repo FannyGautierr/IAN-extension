@@ -154,63 +154,95 @@ function addCloseButton() {
 
 // // Changement de contraste couleurs
 
+// Fonction pour ajuster la luminosité d'une couleur en fonction du contraste cible
+function adjustContrast(color, targetContrast) {
+    // Fonction pour calculer le contraste entre deux couleurs
+    function calculateContrast(color1, color2) {
+        // Fonction pour convertir une couleur hexadécimale en valeurs RGB
+        function hexToRgb(hex) {
+            // Code pour convertir une couleur hexadécimale en RGB
+            // Retourne un objet avec les propriétés r, g et b
+            // ...
 
-// Fonction pour extraire les couleurs d'un élément
-function extractColors(element) {
-    const computedStyle = window.getComputedStyle(element);
-    const backgroundColor = computedStyle.backgroundColor;
-    const color = computedStyle.color;
+            // Exemple simplifié (à adapter selon vos besoins) :
+            const bigint = parseInt(hex.slice(1), 16);
+            const r = (bigint >> 16) & 255;
+            const g = (bigint >> 8) & 255;
+            const b = bigint & 255;
+            return { r, g, b };
+        }
 
-    return [backgroundColor, color];
+        // Fonction pour calculer la luminance d'une couleur
+        function calculateLuminance(color) {
+            // Code pour calculer la luminance d'une couleur
+            // Retourne la luminance de la couleur
+            // ...
+
+            // Exemple simplifié (à adapter selon vos besoins) :
+            const { r, g, b } = color;
+            return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        }
+
+        // Calcul du contraste entre deux couleurs
+        const luminance1 = calculateLuminance(color1);
+        const luminance2 = calculateLuminance(color2);
+        const contrastRatio = (Math.max(luminance1, luminance2) + 0.05) / (Math.min(luminance1, luminance2) + 0.05);
+        return contrastRatio;
+    }
+
+    // Fonction pour ajuster la luminosité d'une couleur
+    function adjustBrightness(color, factor) {
+        // Code pour ajuster la luminosité d'une couleur
+        // Retourne la couleur ajustée
+        // ...
+
+        // Exemple simplifié (à adapter selon vos besoins) :
+        const { r, g, b } = color;
+        const adjustedColor = {
+            r: Math.min(255, Math.max(0, Math.round(r * factor))),
+            g: Math.min(255, Math.max(0, Math.round(g * factor))),
+            b: Math.min(255, Math.max(0, Math.round(b * factor))),
+        };
+        return adjustedColor;
+    }
+
+    // Contraste actuel de la couleur
+    const currentContrast = calculateContrast(hexToRgb(color), { r: 255, g: 255, b: 255 });
+
+    // Ajustement de la luminosité si le contraste est inférieur à la cible
+    if (currentContrast < targetContrast) {
+        const adjustmentFactor = targetContrast / currentContrast;
+        return adjustBrightness(hexToRgb(color), adjustmentFactor);
+    }
+
+    // Retour de la couleur d'origine si le contraste est déjà suffisant
+    return hexToRgb(color);
 }
 
-// Fonction pour parcourir tous les éléments de la page et extraire les couleurs
-function getAllColors() {
-    const allElements = document.querySelectorAll('*');
-    const allColors = [];
+// Fonction pour appliquer le contraste automatique à toutes les couleurs d'une page
+function applyAutomaticContrast(targetContrast) {
+    // Sélection de toutes les balises avec une couleur de fond ou de texte
+    const elementsWithColor = document.querySelectorAll('[style*="color"], [style*="background-color"]');
 
-    allElements.forEach(element => {
-        const colors = extractColors(element);
-        allColors.push(...colors);
+    // Parcours de chaque élément pour ajuster le contraste
+    elementsWithColor.forEach((element) => {
+        // Récupération de la couleur actuelle
+        const currentColor = window.getComputedStyle(element).color || window.getComputedStyle(element).backgroundColor;
+
+        // Ajustement du contraste et application de la nouvelle couleur
+        const adjustedColor = adjustContrast(currentColor, targetContrast);
+        element.style.setProperty(element.style.color ? 'color' : 'background-color', `rgb(${adjustedColor.r}, ${adjustedColor.g}, ${adjustedColor.b})`);
     });
-
-    return allColors;
 }
 
-// Vérifier si la couleur est claire
-function isColorLight(hexColor) {
-    // Convertir la couleur hexadécimale en valeurs RGB
-    let r = parseInt(hexColor.slice(1, 3), 16);
-    let g = parseInt(hexColor.slice(3, 5), 16);
-    let b = parseInt(hexColor.slice(5, 7), 16);
-
-    // Calculer la luminosité en utilisant la formule de luminance relative (réf Wikipédia "Colorimétrie")
-    let luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-
-    // Si la luminosité est supérieure ou égal à 0,5, la couleur est considérée comme claire
-    return luminance >= 0.5;
-}
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.log('color')
     if (message.action === "activateContrast") {
 
-        // Appeler la fonction pour obtenir toutes les couleurs
-        const colorsOnPage = getAllColors();
-        
-        // console.log('Toutes les couleurs sur la page :', colorsOnPage);
+        // Application du contraste automatique avec un contraste cible de 0.5
+        applyAutomaticContrast(0.5);
 
-        colorsOnPage.map((color) => {
-            const item = isColorLight(color)
-
-            if(item === true) {
-                console.log("Tag ou couleur détecté", color); 
-                console.log("Couleur type claire");
-            } else {
-                console.log("Tag ou couleur détecté", color); 
-                console.log("Couleur type foncé");
-            }
-        })
     }
     sendResponse({status: "done"}); // Optional: send a response back
 });
