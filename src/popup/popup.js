@@ -24,4 +24,16 @@ window.addEventListener('DOMContentLoaded', () => {
             });
         }
     });
+
+    document.getElementById('right').addEventListener('click', () => {
+        chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+            chrome.tabs.sendMessage(tabs[0].id, {action: "right"});
+        });
+    });
+
+    document.getElementById('left').addEventListener('click', () => {
+        chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+            chrome.tabs.sendMessage(tabs[0].id, {action: "left"});
+        });
+    });
 });

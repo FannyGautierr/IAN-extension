@@ -76,4 +76,30 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         })
     }
     sendResponse({status: "done"}); // Optional: send a response back
+
+    function moveRight(delta) {
+        const elements = document.querySelectorAll('*');
+        elements.forEach(element => {
+            const currentSize = parseInt(window.getComputedStyle(element).right);
+            element.style.right = `${currentSize + delta}px`;
+        });
+    }
+
+    function moveLeft(delta) {
+        const elements = document.querySelectorAll('*');
+        elements.forEach(element => {
+            const currentSize = parseInt(window.getComputedStyle(element).left);
+            element.style.left = `${currentSize + delta}px`;
+        });
+    }
+
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+        console.log('moving')
+        if (message.action === "right") {
+            moveRight(1); // Moving the body content to the right by 1px
+        } else if (message.action === "left") {
+            moveLeft(1); // Moving the body content to the left by 1px
+        }
+        sendResponse({status: "done"}); // Optional: send a response back
+    });
 });
