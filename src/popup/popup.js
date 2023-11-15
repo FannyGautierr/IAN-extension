@@ -1,4 +1,18 @@
+
+function getDomainName(callback) {
+    chrome.storage.local.get(['domainName'], function(res) {
+        if (chrome.runtime.lastError) {
+            console.error('Error fetching domain name:', chrome.runtime.lastError);
+        } else {
+            callback(res.domainName);
+        }
+    });
+}
 window.addEventListener('DOMContentLoaded', () => {
+
+
+    let picker = false;
+
     document.getElementById('increase').addEventListener('click', () => {
         chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
             chrome.tabs.sendMessage(tabs[0].id, {action: "increaseFontSize"});
@@ -19,15 +33,28 @@ window.addEventListener('DOMContentLoaded', () => {
     // })
 
     document.querySelector('#picker').addEventListener('click',()=>{
-        chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-            chrome.tabs.sendMessage(tabs[0].id, {action: "picker"});
-        })
+        console.log(picker)
+        picker = !picker
+        console.log(picker)
+        if(picker){
+            document.querySelector('#picker').innerHTML ='Disable picker'
+            chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+                chrome.tabs.sendMessage(tabs[0].id, {action: "picker"});
+            })
+        }else {
+            document.querySelector('#picker').innerHTML = 'Picker'
+            chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+                chrome.tabs.sendMessage(tabs[0].id, {action: "disableClick"});
+            })
+        }
     })
 
     if(localStorage.getItem('companies')!== null){
         document.querySelector('#startOnboard').addEventListener('click',()=>{
-            chrome.tabs.query({active: true, currentWindow: true}, (tabs)=>{
-                chrome.tabs.sendMessage(tabs[0].id,{action: 'start',localStorage: localStorage.getItem('companies')} )
+            getDomainName(domainName => {
+                chrome.tabs.query({active: true, currentWindow: true}, (tabs)=>{
+                    chrome.tabs.sendMessage(tabs[0].id,{action: 'start',localStorage: localStorage.getItem(domainName)} )
+                })
             })
         })
     }

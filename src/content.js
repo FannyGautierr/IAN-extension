@@ -1,4 +1,7 @@
 
+
+let isClickEnabled = true;
+
 function changeFontSize(delta) {
     const elements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, button, input, textarea, select, option, label');
     elements.forEach(element => {
@@ -7,16 +10,23 @@ function changeFontSize(delta) {
     });
 }
 
+
 function picker(){
+    addCloseButton()
+    console.log(document.querySelectorAll('*'))
+
     document.addEventListener('mouseover',(target)=>{
         target.target.addEventListener('mouseleave',() => {
-            target.target.parentNode.style.border='none'
-            target.target.style.border='none'
+            target.target.parentNode.style.border= null
+     
+            target.target.style.border= null
+            target.target.style = null
         })
         target.target.parentNode.style.border='none'
-        target.target.style.border= 'white 2px solid'
+        target.target.style.border= 'orange 8px solid'
+        target.target.style.borderradius= '1.25rem'
         target.target.style.padding = '10px'
-        target.targe.style.borderRadius = '20%'
+        target.target.style.opacity= '1'
     })
 }
 
@@ -26,15 +36,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     } else if (message.action === "decreaseFontSize") {
         changeFontSize(-1);
     } else if( message.action === 'picker'){
-        console.log('ijeidejzoize')
-        picker();
+            picker();
     } else if( message.action === 'start' ){
+        console.log(message.localStorage)
         speakAndHighlight(JSON.parse(message.localStorage))
+    } else if( message.action === 'disableClick'){
+        isClickEnabled = false
     }
     sendResponse({status: "done"}); 
 })
 
 document.addEventListener('click', (event)=>{
+    if (!isClickEnabled) return;
     let element = event.target;
     let selector = '';
 
@@ -48,12 +61,13 @@ document.addEventListener('click', (event)=>{
         }
         element = element.parentElement;
     }
-
+    const domainName = window.location.hostname
+    console.log(domainName)
     // target.target.addEventListener('click', ()=>{
     //     chrome.runtime.sendMessage({action: "openNewWindow"})
     // })
 
-    chrome.runtime.sendMessage({action: "openNewWindow",identifier: selector})
+    chrome.runtime.sendMessage({action: "openNewWindow",identifier: selector, domain: domainName})
 })
 
 // function guidedTour(object){
@@ -77,7 +91,7 @@ document.addEventListener('click', (event)=>{
 //     }
 // }
 
-function speakAndHighlight(elements, delay = 1000, speechRate = 0.8) {
+function speakAndHighlight(elements, delay = 1000, speechRate = 0.9) {
     let index = 0;
     const msg = new SpeechSynthesisUtterance();
     msg.lang = "fr-FR"
@@ -90,19 +104,12 @@ function speakAndHighlight(elements, delay = 1000, speechRate = 0.8) {
         }
 
         let element = elements[index];
-
-        // Change the opacity and styles as needed
-      
-        console.log( document.querySelector(element.selector))
-        console.log(document.querySelector(element.selector).style)
         //document.querySelector(element.selector).style.opacity = "1";
         document.querySelector(element.selector).style.setProperty('opacity', '1', 'important');
-        document.querySelector(element.selector).style.border ='solid 10px red'
-
-        // Set the text to be spoken
+        document.querySelector(element.selector).style.border ='solid 10px orange'
+     
         msg.text = element.description;
 
-        // When the speech ends, reset styles and move to the next element
         msg.onend = () => {
             document.body.style.opacity = "1";
             document.querySelector(element.selector).style.border ='none'
@@ -110,8 +117,8 @@ function speakAndHighlight(elements, delay = 1000, speechRate = 0.8) {
 
             setTimeout(() => {
                 index++;
-                speakNext(); // Proceed to the next element after the delay
-            }, delay); // Call the same function for the next element
+                speakNext();
+            }, delay);
         };
 
         // Speak the text
@@ -120,4 +127,27 @@ function speakAndHighlight(elements, delay = 1000, speechRate = 0.8) {
 
     // Start the process
     speakNext();
+}
+
+
+function addCloseButton() {
+    console.log('close')
+    const closeButton = document.createElement('button');
+    closeButton.innerText = 'Close';
+    closeButton.style.position = 'fixed';
+    closeButton.style.backgroundColor='red'
+    closeButton.style.position='absolute'
+    closeButton.style.height='40px'
+    closeButton.style.width='40px'
+    closeButton.style.top = '10px';
+    closeButton.style.right = '10px';
+    closeButton.style.zIndex = '1000'; // Ensure it's above other elements
+
+    closeButton.addEventListener('click', function() {
+        // Define what happens when the button is clicked
+        window.close(); // This will close the current tab
+    });
+
+    document.body.insertBefore(closeButton,document.body.firstChild);
+    console.log(closeButton)
 }

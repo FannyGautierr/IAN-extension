@@ -5,6 +5,7 @@ chrome.runtime.onMessage.addListener(
             chrome.storage.local.set({identifier: request.identifier}, function() {
                 console.log('Identifiant sauvegardé');
             });
+            chrome.storage.local.set({domainName: request.domain})
             chrome.windows.create({
                 url: chrome.runtime.getURL("src/popup/setup.html"),
                 type: "popup" // Or "normal" for a new tab/window
