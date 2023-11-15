@@ -8,8 +8,25 @@ Langages : HTML/CSS/JS
 
 # Organisation du projet
 
-manifest.json -> 
+# # Racine du projet
 
+manifest.json -> Fichier de configuration générale de l'extension au niveau du gestionnaire d'extension
+
+# # Dossier "src"
+
+C'est le dossier où se trouve tous le code source de l'extension :
+
+• Dossier "popup"
+• background.js -> Fichier de test pour vérifier l'éxécution de l'extension lorsqu'elle est activé
+• content.js -> Code fonctionnel des différentes fonctionnalités de l'extension, qui s'éxécuteront sur la page selon la fonctionnalité utilisée
+
+# # Dossier "popup"
+
+C'est le dossier contenant toutes les ressources (codes, design, etc) lié au Popup :
+    • index.html -> Code de la structure html du contenu du Popup
+    • popup.js -> Code de la liaison entre la page et les fonctionnalités de l'extension présent dans le Popup
+    • style.css -> Code de stylisation/design du Popup et son contenu
+    
 # Objectif de l'extension
 
 L'extension permet à n'importe quel utilisateur ayant un handicap d'ordre visuel (perte de vue, difficulté de perception colorimétrique, trouble de la vue...) de naviguer facilement sur une application ou site web à travers un parcours informatif auditif.

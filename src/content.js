@@ -1,5 +1,10 @@
 
-console.log('heyeyyeyeyyeye')
+console.log('heyeyyeyeyyeye') // vérifier si les fonctions natifs sont éxécuter lors de l'activation d'une fonctionnalité
+
+
+// // Agrandissement/Rétrécissement des taille police écriture + modification résolution écran
+
+
 function changeFontSize(delta) {
     const elements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, button, input, textarea, select, option, label');
     elements.forEach(element => {
@@ -17,6 +22,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
     sendResponse({status: "done"}); // Optional: send a response back
 });
+
+
+// // Changement de contraste couleurs
+
 
 // Fonction pour extraire les couleurs d'un élément
 function extractColors(element) {
@@ -40,6 +49,7 @@ function getAllColors() {
     return allColors;
 }
 
+// Vérifier si la couleur est claire
 function isColorLight(hexColor) {
     // Convertir la couleur hexadécimale en valeurs RGB
     let r = parseInt(hexColor.slice(1, 3), 16);
@@ -52,7 +62,6 @@ function isColorLight(hexColor) {
     // Si la luminosité est supérieure ou égal à 0,5, la couleur est considérée comme claire
     return luminance >= 0.5;
 }
-
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.log('color')
@@ -76,30 +85,40 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         })
     }
     sendResponse({status: "done"}); // Optional: send a response back
+});
 
-    function moveRight(delta) {
-        const elements = document.querySelectorAll('*');
-        elements.forEach(element => {
-            const currentSize = parseInt(window.getComputedStyle(element).right);
-            element.style.right = `${currentSize + delta}px`;
-        });
-    }
 
-    function moveLeft(delta) {
-        const elements = document.querySelectorAll('*');
-        elements.forEach(element => {
-            const currentSize = parseInt(window.getComputedStyle(element).left);
-            element.style.left = `${currentSize + delta}px`;
-        });
-    }
+// // Positionnement personnalisé du contenu entier de la page
 
-    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-        console.log('moving')
-        if (message.action === "right") {
-            moveRight(1); // Moving the body content to the right by 1px
-        } else if (message.action === "left") {
-            moveLeft(1); // Moving the body content to the left by 1px
-        }
-        sendResponse({status: "done"}); // Optional: send a response back
+
+function moveRight(delta) {
+    const elements = document.querySelectorAll('*'); // extraction de toutes la structure html de la page
+    elements.forEach(element => {
+        // extraction du style de la page puis conversion de la valeur du positionnement vers la droite en nombre entier
+        const currentSize = parseInt(window.getComputedStyle(element).right);
+        // dynamisation de la valeur de pixels du positionnement vers la droite
+        element.style.right = `${currentSize + delta}px`;
     });
+}
+
+function moveLeft(delta) {
+    const elements = document.querySelectorAll('*'); // extraction de toutes la structure html de la page
+    elements.forEach(element => {
+        // extraction du style de la page puis conversion de la valeur du positionnement vers la gauche en nombre entier
+        const currentSize = parseInt(window.getComputedStyle(element).left);
+        // dynamisation de la valeur de pixels du positionnement vers la gauche
+        element.style.left = `${currentSize + delta}px`;
+    });
+}
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    console.log('moving')
+    if (message.action === "right") {
+        moveRight(1); // Moving the body content to the right by 1px
+        console.log('Your moving to the right')
+    } else if (message.action === "left") {
+        moveLeft(1); // Moving the body content to the left by 1px
+        console.log('Your moving to the left')
+    }
+    sendResponse({status: "done"}); // Optional: send a response back
 });
