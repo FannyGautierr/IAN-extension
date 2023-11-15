@@ -8,11 +8,11 @@ Langages : HTML/CSS/JS
 
 # Organisation du projet
 
-# #_Racine du projet_
+# _Racine du projet_
 
 manifest.json -> Fichier de configuration générale de l'extension au niveau du gestionnaire d'extension
 
-# #_Dossier "src"_
+# _Dossier "src"_
 
 C'est le dossier où se trouve tous le code source de l'extension :
 
@@ -20,7 +20,7 @@ C'est le dossier où se trouve tous le code source de l'extension :
 • background.js -> Fichier de test pour vérifier l'éxécution de l'extension lorsqu'elle est activé
 • content.js -> Code fonctionnel des différentes fonctionnalités de l'extension, qui s'éxécuteront sur la page selon la fonctionnalité utilisée
 
-# #_Dossier "popup"_
+# _Dossier "popup"_
 
 C'est le dossier contenant toutes les ressources (codes, design, etc) lié au Popup :
 
@@ -28,7 +28,7 @@ C'est le dossier contenant toutes les ressources (codes, design, etc) lié au Po
     • popup.js -> Code de la liaison entre la page et les fonctionnalités de l'extension présent dans le Popup
     • style.css -> Code de stylisation/design du Popup et son contenu
 
-# #_Dossier "admin"_
+# _Dossier "admin"_
 
 C'est le dossier contenant toutes les ressources (codes, design, etc) lié à la page de connexion de l'administrateur SI :
 
