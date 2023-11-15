@@ -39,12 +39,15 @@ C'est le dossier contenant toutes les ressources (codes, design, etc) lié à la
 # Objectif de l'extension
 
 L'extension permet à n'importe quel utilisateur ayant un handicap d'ordre visuel (perte de vue, difficulté de perception colorimétrique, trouble de la vue...) de naviguer facilement sur une application ou site web à travers un parcours informatif auditif.
+D'autres fonctionnalités sont évidemment comprises comme le changement du positionnement du contenu de la page pour une visualisation personnalisé ainsi que l'agrandissement/rétrécissement de la taille des polices en entier et simultanément.
 
 # Comment l'utiliser ?
 
 Pour agrandir ou rétrécir la police des textes ainsi que la résolution de l'écran simultanément pour une meilleure lisibilité de lecture, deux boutons "+" (agrandir) et "-" (rétrécir) avec au milieu une information sur la taille généralisé de la page (police de texte et résolution de l'écran).
 
-Chaque clic sur une touche de clavier (ou tactile dans le cas d'un écran de téléphone) guidera l'utilisateur dans la navigation de la solution digitale sur lequel elle a été activée à travers des bulles d'informations visuels dans le cas d'un handicap relevant de troubles ou difficultés liés à la vue et de l'audiodescription dans le cas d'un handicap présentant une incapacité visuelle.
+Les boutons fléchés permettent de centrer le contenu souhaiter sans aucune modification vers la gauche ou la droite selon l'envie de l'utilisateur afin de centrer le contenu avec précision.
+
+Le bouton Picker permet tout d'abord au configurateur de l'onboarding de séléctionner le contenu à lire par section afin de mettre en place le parcours de lecture puis la lecture a voix haute est appliqué une fois le Picker désactivé.
 
 # Tests technique des fonctionnalités (optionnel)
 
