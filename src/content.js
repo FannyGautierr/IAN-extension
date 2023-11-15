@@ -1,6 +1,20 @@
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.action === "increaseFontSize") {
+        changeFontSize(1);
+    } else if (message.action === "decreaseFontSize") {
+        changeFontSize(-1);
+    } else if( message.action === 'picker'){
+            picker();
+    } else if( message.action === 'start' ){
+        console.log(message.localStorage)
+        speakAndHighlight(JSON.parse(message.localStorage))
+    } else if( message.action === 'disableClick'){
+        isClickEnabled = false
+    }
+    sendResponse({status: "done"}); 
+})
 
-
-let isClickEnabled = true;
+// // Changement taille de la police d'écriture
 
 function changeFontSize(delta) {
     const elements = document.querySelectorAll('p, h1, h2, h3, h4, h5, h6, span, a, li, button, input, textarea, select, option, label');
@@ -10,7 +24,9 @@ function changeFontSize(delta) {
     });
 }
 
+// // Lecture à voix haute contenu web (Picker)
 
+// Navigation dans le contenu web [Scroll et hover]
 function picker(){
     addCloseButton()
     console.log(document.querySelectorAll('*'))
@@ -30,21 +46,8 @@ function picker(){
     })
 }
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.action === "increaseFontSize") {
-        changeFontSize(1);
-    } else if (message.action === "decreaseFontSize") {
-        changeFontSize(-1);
-    } else if( message.action === 'picker'){
-            picker();
-    } else if( message.action === 'start' ){
-        console.log(message.localStorage)
-        speakAndHighlight(JSON.parse(message.localStorage))
-    } else if( message.action === 'disableClick'){
-        isClickEnabled = false
-    }
-    sendResponse({status: "done"}); 
-})
+// Séléction de la partie du contenu à lire
+let isClickEnabled = true;
 
 document.addEventListener('click', (event)=>{
     if (!isClickEnabled) return;
@@ -67,6 +70,7 @@ document.addEventListener('click', (event)=>{
     //     chrome.runtime.sendMessage({action: "openNewWindow"})
     // })
 
+    // Ouverture fenêtre de saisie du texte à lire pour le contenu séléctionné
     chrome.runtime.sendMessage({action: "openNewWindow",identifier: selector, domain: domainName})
 })
 
@@ -91,6 +95,7 @@ document.addEventListener('click', (event)=>{
 //     }
 // }
 
+// Activation de la lecture à voix haute
 function speakAndHighlight(elements, delay = 1000, speechRate = 0.9) {
     let index = 0;
     const msg = new SpeechSynthesisUtterance();

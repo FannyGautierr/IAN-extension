@@ -1,3 +1,5 @@
+// Mise en place d'un domaine navigateur
+
 function getDomainName(callback) {
     chrome.storage.local.get(['domainName'], function(res) {
         if (chrome.runtime.lastError) {
@@ -7,6 +9,8 @@ function getDomainName(callback) {
         }
     });
 }
+
+// Génération de la fenetre de saisie pour le texte à lire à voix haute sur le contenu séléctionné
 
 window.addEventListener('DOMContentLoaded', ()=>{
 

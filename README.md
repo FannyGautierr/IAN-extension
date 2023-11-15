@@ -26,7 +26,9 @@ C'est le dossier contenant toutes les ressources (codes, design, etc) lié au Po
 
     • index.html -> Code de la structure html du contenu du Popup
     • popup.js -> Code de la liaison entre la page et les fonctionnalités de l'extension présent dans le Popup
-    • style.css -> Code de stylisation/design du Popup et son contenu
+    • setup.html -> Code de la structure html du contenu de la fenêtre de setup pour la lecture à voix haute
+    • setup.js -> Code du comportement de la page de setup pour la lecture à voix haute (intéractivité, lancement de la lecture, sélection personnalisé d'un contenu précis...)
+    • style.css -> Code de stylisation/design du Popup + Setup et leurs contenus
 
 # _Dossier "admin"_ (optionnel)
 
