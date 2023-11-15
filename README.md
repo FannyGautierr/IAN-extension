@@ -8,11 +8,11 @@ Langages : HTML/CSS/JS
 
 # Organisation du projet
 
-# # Racine du projet
+# #_Racine du projet_
 
 manifest.json -> Fichier de configuration générale de l'extension au niveau du gestionnaire d'extension
 
-# # Dossier "src"
+# #_Dossier "src"_
 
 C'est le dossier où se trouve tous le code source de l'extension :
 
@@ -20,12 +20,21 @@ C'est le dossier où se trouve tous le code source de l'extension :
 • background.js -> Fichier de test pour vérifier l'éxécution de l'extension lorsqu'elle est activé
 • content.js -> Code fonctionnel des différentes fonctionnalités de l'extension, qui s'éxécuteront sur la page selon la fonctionnalité utilisée
 
-# # Dossier "popup"
+# #_Dossier "popup"_
 
 C'est le dossier contenant toutes les ressources (codes, design, etc) lié au Popup :
+
     • index.html -> Code de la structure html du contenu du Popup
     • popup.js -> Code de la liaison entre la page et les fonctionnalités de l'extension présent dans le Popup
     • style.css -> Code de stylisation/design du Popup et son contenu
+
+# #_Dossier "admin"_
+
+C'est le dossier contenant toutes les ressources (codes, design, etc) lié à la page de connexion de l'administrateur SI :
+
+    • login.html -> Code de la structure html du contenu de la page de connexion
+    • connection.js -> Code du comportement de la page (intéractivité, vérification des valeurs saisies...)
+    • admin.css -> Code de stylisation/design de la page de connexion et son contenu
     
 # Objectif de l'extension
 
@@ -43,4 +52,4 @@ Si vous souhaitez tester les fonctionnalités au niveau technique, il faut tout 
 
 Ensuite, faites un clic droit avec la souris ou le pad du clavier. Puis rendez vous sur "Inspecter" (ou outils de développement/Inspection de développement) > rubrique "Console".
 
-Lorsque vous éxécuterez l'extension de manière classique, avec la console toujours ouverte, des messages apparaîtront avec les résultats de tests pour chaque fonctionnalités de l'extension.
+Lorsque vous éxécuterez l'extension de manière classique, avec la console toujours ouverte, des messages apparaîtront avec les résultats de tests pour chaque fonctionnalités de l'extension. Et pour cela, aller dans le gestionnaire d'extension de Chrome en cliquant sur le puzzle en haut tout à droite puis activé le mode développeur et importer le dossier "IAN-extension" en allant sur "Charger l'extension non empaquetée".

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dosis:wght@700&family=Itim&family=Quicksand:wght@600&family=Unbounded:wght@500&display=swap"
+      rel="stylesheet"
+	/>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="admin.css">
+    <script src="connection.js"></script>
+</head>
+<body>
+
+    <!--Formulaire de login Admin-->
+
+	<div class="block">
+		<div class="blockContent">
+			<form>
+				<h1>Connexion</h1>
+				<label>Identifiant</label>
+				<input id="ID" class="form-control form-input-text"></input>
+                <label>Mot de passe</label>
+				<input id="mdp" class="form-control form-input-text"></input>
+				<div class="submitArea">
+					<button type="submit" class="submitButton"><a>Se connecter</a></button>
+				</div>
+                <p id="errorMessage" hidden>L'identifiant ou le mot de passe est incorrect</p>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>

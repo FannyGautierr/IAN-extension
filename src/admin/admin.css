@@ -1,0 +1,88 @@
+body {
+    padding: 45%;
+    background: #ff5f6d; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to right,
+      #ff5f6d,
+      #ffc371
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to right,
+      #ff5f6d,
+      #ffc371
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+  
+  .questionsblock {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    height: 320px;
+    min-width: 256px;
+    max-width: 586px;
+    box-shadow: -12px 12px 2px 1px rgba(0, 0, 255, 0.2);
+    border-radius: 20px;
+  }
+  
+  .questionBlockContent {
+    margin: auto;
+    width: 500px;
+    height: 500px;
+    padding: 45px;
+  }
+  
+  h1 {
+    font-family: "Itim", cursive;
+    font-size: 18px;
+    line-height: 28px;
+  }
+  
+  label {
+    font-family: "Dosis", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 17px;
+  }
+  
+  input {
+    width: 100%;
+  }
+  
+  .form-input-text {
+    font-family: "Quicksand", sans-serif;
+  }
+  
+  .submitArea {
+    margin-top: 32px;
+  }
+  
+  .submitButton {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 118px;
+    height: 36px;
+    background-color: rgb(247, 179, 190);
+    border: 2px solid rgb(247, 169, 183);
+    border-radius: 6px;
+    box-shadow: 0px 2px 3px 2px rgba(0, 0, 255, 0.2);
+  }
+  
+  a {
+    font-family: "Dosis", sans-serif;
+    color: white;
+    font-size: 20px;
+    line-height: 28px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+  }
+
+  p {
+    color: #ff5f6d;
+    margin-top: 32px;
+  }
+  
