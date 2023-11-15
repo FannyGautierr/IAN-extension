@@ -4,3 +4,59 @@
     padding: 0;
 }
 
+html{
+    height: 600px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 220px;
+    gap: 2px;
+    border-radius: 20%;
+    padding:20px
+}
+
+.button{
+    border: none;
+    background-color: #2C2B2B;
+    color: white;
+    font-size: x-large;
+    padding: 10px 14px;
+    margin: 0 auto ;
+}
+
+.onboarding{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.setup{
+    display: flex;
+    margin: 0 auto;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: solid #2C2B2B 2px;
+    border-radius: 5%;
+}
+
+p{
+    color: black;
+    text-align: center;
+}
+
+.line{
+    height: 7px;
+    border-radius: 2%;
+    background-color: white;
+    margin: 20px;
+}

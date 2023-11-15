@@ -7,26 +7,31 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Typo Terminator</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <script src="popup.js"></script>
 </head>
-<body>
-
-    <!-- Agrandissement/Rétrécisement de la police d'écriture + résolution d'écran -->
-<div>
-    <p>
-        resize text on the page
-    </p>
+<body class="container">
+<div class="options">
+    <p>resize text on the page</p>
     <div class="container">
         <div class="row">
-            <div class="col-12">
-                <button id="increase">+</button>
-                <span id="size">16</span>
-                <button id="decrease">-</button>
+            <div>
+                <button id="increase" class="button">+</button>
+                <button id="decrease" class="button">-</button>
             </div>
         </div>
     </div>
 </div>
+<div class="line"></div>
+<div>
+    <button id="startOnboard">Start the onboarding</button>
+</div>
 
+<h2>Your a company ? Setup your onboarding</h2>
+<p>If you want to create a custom onboarding, click on picker and then click on any section you want on the page , you will have the ability to add a description for this part</p>
+<button id="picker">
+    Picker
+</button>
 <!-- Changement de contraste -->
 <div>
     <p>
@@ -56,5 +61,8 @@
     </div>
 </div>
 
+<!-- <div>
+    <p id="setupOnboard">Setup un onboarding</p>
+</div> -->
 </body>
 </html>
