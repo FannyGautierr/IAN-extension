@@ -13,15 +13,18 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let picker = false;
 
+    // Actionnement de l'agrandissement de la taille de police depuis l'extension
     document.getElementById('increase').addEventListener('click', () => {
         chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
             chrome.tabs.sendMessage(tabs[0].id, {action: "increaseFontSize"});
         })
     })
 
+    // Actionnement du rétrécissement de la taille de police depuis l'extension
     document.getElementById('decrease').addEventListener('click', () => {
         chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
             chrome.tabs.sendMessage(tabs[0].id, {action: "decreaseFontSize"});
+
         })
     })
 
@@ -58,6 +61,36 @@ window.addEventListener('DOMContentLoaded', () => {
             })
         })
     }
+
+
+
+    // Actionnement du changement automatique de contraste de couleurs depuis l'extension
+    document.getElementById('contrastActivation').addEventListener('click', () => {
+
+        if(document.getElementById('contrastActivation').value === "Activé") {
+            document.getElementById('contrastActivation').value = "Désactivé"
+        } else {
+            document.getElementById('contrastActivation').value = "Activé"
+
+            chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+                chrome.tabs.sendMessage(tabs[0].id, {action: "activateContrast"});
+            });
+        }
+    });
+
+    // Actionnement du positionnement du contenu entier vers la droite depuis l'extension
+    document.getElementById('right').addEventListener('click', () => {
+        chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+            chrome.tabs.sendMessage(tabs[0].id, {action: "right"});
+        });
+    });
+
+    // Actionnement du positionnement du contenu entier vers la gauche depuis l'extension
+    document.getElementById('left').addEventListener('click', () => {
+        chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+            chrome.tabs.sendMessage(tabs[0].id, {action: "left"});
+        });
+    });
  
     // chrome.storage.local.get(['message'], function(result) {
     //     console.log(result.message)
@@ -70,9 +103,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // });
 })
 
-function guidedTour(){
 
-}
 
 // chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 //     console.log(message)
@@ -80,3 +111,5 @@ function guidedTour(){
 //       console.log('NIJNIOJIOJIOJIOJOIJOIJIO')
 //     }
 // })
+
+
