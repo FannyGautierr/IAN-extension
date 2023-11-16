@@ -160,83 +160,14 @@ function addCloseButton() {
 // // Changement de contraste couleurs
 
 // Fonction pour ajuster la luminosité d'une couleur en fonction du contraste cible
-function adjustContrast(color, targetContrast) {
-    // Fonction pour calculer le contraste entre deux couleurs
-    function calculateContrast(color1, color2) {
-        // Fonction pour convertir une couleur hexadécimale en valeurs RGB
-        function hexToRgb(hex) {
-            // Code pour convertir une couleur hexadécimale en RGB
-            // Retourne un objet avec les propriétés r, g et b
-            // ...
+function adjustContrast(contrastValue) {
+    // Convertir la valeur de contraste en pourcentage
+    const contrastPercentage = contrastValue * 100;
 
-            // Exemple simplifié (à adapter selon vos besoins) :
-            const bigint = parseInt(hex.slice(1), 16);
-            const r = (bigint >> 16) & 255;
-            const g = (bigint >> 8) & 255;
-            const b = bigint & 255;
-            return { r, g, b };
-        }
+    const allColors = document.querySelectorAll('*');
 
-        // Fonction pour calculer la luminance d'une couleur
-        function calculateLuminance(color) {
-            // Code pour calculer la luminance d'une couleur
-            // Retourne la luminance de la couleur
-            // ...
-
-            // Exemple simplifié (à adapter selon vos besoins) :
-            const { r, g, b } = color;
-            return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-        }
-
-        // Calcul du contraste entre deux couleurs
-        const luminance1 = calculateLuminance(color1);
-        const luminance2 = calculateLuminance(color2);
-        const contrastRatio = (Math.max(luminance1, luminance2) + 0.05) / (Math.min(luminance1, luminance2) + 0.05);
-        return contrastRatio;
-    }
-
-    // Fonction pour ajuster la luminosité d'une couleur
-    function adjustBrightness(color, factor) {
-        // Code pour ajuster la luminosité d'une couleur
-        // Retourne la couleur ajustée
-        // ...
-
-        // Exemple simplifié (à adapter selon vos besoins) :
-        const { r, g, b } = color;
-        const adjustedColor = {
-            r: Math.min(255, Math.max(0, Math.round(r * factor))),
-            g: Math.min(255, Math.max(0, Math.round(g * factor))),
-            b: Math.min(255, Math.max(0, Math.round(b * factor))),
-        };
-        return adjustedColor;
-    }
-
-    // Contraste actuel de la couleur
-    const currentContrast = calculateContrast(hexToRgb(color), { r: 255, g: 255, b: 255 });
-
-    // Ajustement de la luminosité si le contraste est inférieur à la cible
-    if (currentContrast < targetContrast) {
-        const adjustmentFactor = targetContrast / currentContrast;
-        return adjustBrightness(hexToRgb(color), adjustmentFactor);
-    }
-
-    // Retour de la couleur d'origine si le contraste est déjà suffisant
-    return hexToRgb(color);
-}
-
-// Fonction pour appliquer le contraste automatique à toutes les couleurs d'une page
-function applyAutomaticContrast(targetContrast) {
-    // Sélection de toutes les balises avec une couleur de fond ou de texte
-    const elementsWithColor = document.querySelectorAll('[style*="color"], [style*="background-color"]');
-
-    // Parcours de chaque élément pour ajuster le contraste
-    elementsWithColor.forEach((element) => {
-        // Récupération de la couleur actuelle
-        const currentColor = window.getComputedStyle(element).color || window.getComputedStyle(element).backgroundColor;
-
-        // Ajustement du contraste et application de la nouvelle couleur
-        const adjustedColor = adjustContrast(currentColor, targetContrast);
-        element.style.setProperty(element.style.color ? 'color' : 'background-color', `rgb(${adjustedColor.r}, ${adjustedColor.g}, ${adjustedColor.b})`);
+    allColors.forEach(element => {
+        element.style.filter = `contrast(${contrastPercentage}%)`;
     });
 }
 
@@ -245,10 +176,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.log('color')
     if (message.action === "activateContrast") {
 
-        // Application du contraste automatique avec un contraste cible de 0.5
-        applyAutomaticContrast(0.5);
+        // Application du contraste automatique avec un contraste cible de 0.85 (85%, voir selon jauge ou degré le plus compatible sur toutes les couleurs)
+        adjustContrast(1.25);
 
-    }
+    } 
+    // else if (message.action === "disabledContrast") {
+
+    //     // Application du contraste automatique avec un contraste cible de 1 (100%)
+    //     adjustContrast(1);
+    // }
     sendResponse({status: "done"}); // Optional: send a response back
 });
 

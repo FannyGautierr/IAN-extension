@@ -69,6 +69,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
         if(document.getElementById('contrastActivation').value === "Activé") {
             document.getElementById('contrastActivation').value = "Désactivé"
+
+            // chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+            //     chrome.tabs.sendMessage(tabs[0].id, {action: "disabledContrast"});
+            // });
+
         } else {
             document.getElementById('contrastActivation').value = "Activé"
 
